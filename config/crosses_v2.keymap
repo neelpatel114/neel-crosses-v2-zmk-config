@@ -170,12 +170,13 @@
 
         mouse_layer {
             // Held via the left outer thumb (GUI). Clicks on both home rows:
-            // left  S/D/F = right/middle/left click, right J/K/L = left/middle/right click.
+            // Index = left click, middle finger = right click, ring = middle click, pinky = back/forward.
+            // Left hand A/S/D/F = back/middle/right/left; right hand J/K/L/; = left/right/middle/forward.
             display-name = "Mouse";
             bindings = <
 &studio_unlock  &trans  &trans     &trans     &trans     &trans       &trans  &trans     &trans     &trans     &trans  &trans
 &trans          &trans  &trans     &trans     &trans     &trans       &trans  &trans     &trans     &trans     &trans  &trans
-&trans          &trans  &mkp RCLK  &mkp MCLK  &mkp LCLK  &trans       &trans  &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans  &trans
+&trans          &mkp MB4  &mkp MCLK  &mkp RCLK  &mkp LCLK  &trans       &trans  &mkp LCLK  &mkp RCLK  &mkp MCLK  &mkp MB5  &trans
 &trans          &trans  &trans     &trans     &trans     &trans       &trans  &trans     &trans     &trans     &trans  &trans
                                    &trans  &trans  &trans               &trans  &trans  &trans
             >;
