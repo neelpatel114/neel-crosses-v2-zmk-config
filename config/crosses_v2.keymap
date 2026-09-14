@@ -14,7 +14,6 @@
  *  - Lower outer key toggles USB vs Bluetooth output.
  *  - Left ball defaults to Scroll, right ball to Cursor (default-index overrides).
  *  - Auto mouse layer: ball motion activates layer 3 for 750 ms (see overrides above the root node).
- *  - OLED (Corne-style 128x32) on the matrix header, both halves. See the &i2c1 block.
  *  - Mouse layer added as layer 3 with clicks on both home rows so either hand can click
  *    while the other thumb drives a ball. studio_unlock is top-left on that layer (GGGW default).
  */
@@ -46,38 +45,8 @@
 &zip_periph_ball  { default-index = <1>; };
 &zip_central_ball { default-index = <0>; };
 
-// OLED support: 128x32 SSD1306 on the matrix PCB's 4-pin header (GND VCC SCL SDA), which
-// the FFC carries to the thumb PCB on P0.15 (SDA) / P0.17 (SCL). The trackball sensor owns
-// SPI0, and on the nRF52840 SPI0 and I2C0 are the same silicon, so the display runs on I2C1
-// and the unused SPI1 (I2C1's twin) is disabled to free that instance. Values copied from
-// the vendor's V1 OLED config (gggw-zmk-keebs, shield crosses).
-&spi1 { status = "disabled"; };
-&i2c1 {
-    compatible = "nordic,nrf-twi";
-    status = "okay";
-    pinctrl-0 = <&i2c0_default>;
-    pinctrl-1 = <&i2c0_sleep>;
-    pinctrl-names = "default", "sleep";
-    oled: ssd1306@3c {
-        compatible = "solomon,ssd1306fb";
-        reg = <0x3c>;
-        width = <128>;
-        height = <32>;
-        segment-offset = <0>;
-        page-offset = <0>;
-        display-offset = <0>;
-        multiplex-ratio = <31>;
-        com-sequential;
-        inversion-on;
-        prechargep = <0x22>;
-    };
-};
-
 / {
-    chosen {
-        zmk,physical-layout = &gggw_crosses_54_layout;
-        zephyr,display = &oled;
-    };
+    chosen { zmk,physical-layout = &gggw_crosses_54_layout; };
 
     macros {
         // Select profile N (one-param wrapper so it can live inside a hold-tap)
