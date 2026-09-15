@@ -4,7 +4,7 @@
  * Port notes vs the Lily58:
  *  - 4x6 matrix per side maps 1:1. Every alpha, number, and outer-column key is unchanged.
  *  - Lily58 had 4 thumbs per side; Crosses has 3. Dropped LALT (left outer) and RGUI (right outer).
- *    Left thumb LGUI became a layer-tap: tap = LGUI, hold = Mouse layer (3), matching the GGGW default.
+ *    Left thumb is a plain LGUI (Cmd); the Mouse layer comes from ball motion (auto mouse layer).
  *  - Lily58's inner bottom-row [ and ] keys do not exist here. Brackets live on Raise, same
  *    positions as before (C/V = [ ], E/R = { }).
  *  - Encoder sensor-bindings removed (no encoder on Crosses).
@@ -92,14 +92,14 @@
             // |  TAB  |  Q  |  W  |  E  |  R  |  T  |      |  Y  |  U  |  I  |  O  |  P  |   -   |
             // | CTRL  |  A  |  S  |  D  |  F  |  G  |      |  H  |  J  |  K  |  L  |  ;  |   '   |
             // | SHIFT |  Z  |  X  |  C  |  V  |  B  |      |  N  |  M  |  ,  |  .  |  /  | SHIFT |
-            //             | GUI/Mouse | LOWER | SPACE |  | ENTER | RAISE | BSPC (shift = DEL) |
+            //             |    CMD    | LOWER | SPACE |  | ENTER | RAISE | BSPC (shift = DEL) |
             display-name = "Base";
             bindings = <
 &kp ESC           &kp N1  &kp N2  &kp N3  &kp N4  &kp N5       &kp N6  &kp N7  &kp N8     &kp N9   &kp N0    &kp EQUAL
 &kp TAB           &kp Q   &kp W   &kp E   &kp R   &kp T        &kp Y   &kp U   &kp I      &kp O    &kp P     &kp MINUS
 &kp LEFT_CONTROL  &kp A   &kp S   &kp D   &kp F   &kp G        &kp H   &kp J   &kp K      &kp L    &kp SEMI  &kp SQT
 &kp LEFT_SHIFT    &kp Z   &kp X   &kp C   &kp V   &kp B        &kp N   &kp M   &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
-                          &lt 3 LGUI  &mo 1  &kp SPACE         &kp RET  &mo 2  &bspc_del
+                          &kp LGUI    &mo 1  &kp SPACE         &kp RET  &mo 2  &bspc_del
             >;
         };
 
@@ -138,7 +138,7 @@
         };
 
         mouse_layer {
-            // Held via the left outer thumb (GUI). Clicks on both home rows:
+            // Activated by ball motion (auto mouse layer). Clicks on both home rows:
             // Index = left click, middle finger = right click, ring = middle click, pinky = back/forward.
             // Left hand A/S/D/F = back/middle/right/left; right hand J/K/L/; = left/right/middle/forward.
             display-name = "Mouse";
