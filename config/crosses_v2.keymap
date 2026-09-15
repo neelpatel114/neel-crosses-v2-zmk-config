@@ -13,6 +13,7 @@
  *  - Shift+Backspace sends Delete (mod-morph on the right thumb).
  *  - Lower outer key toggles USB vs Bluetooth output.
  *  - Left ball defaults to Scroll, right ball to Cursor (default-index overrides).
+ *  - Left ball scroll slowed (scaler 1/20, 24 ms) via zip_periph_ball child overrides.
  *  - Auto mouse layer: ball motion activates layer 3 for 750 ms (see overrides above the root node).
  *  - Mouse layer added as layer 3 with clicks on both home rows so either hand can click
  *    while the other thumb drives a ball. studio_unlock is top-left on that layer (GGGW default).
@@ -24,6 +25,7 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
 
 // Auto mouse layer: any ball movement turns on layer 3 (Mouse) for 750 ms after the
 // last motion, so S/D/F and J/K/L become clicks while pointing. It will not activate
@@ -44,6 +46,25 @@
 // Note: the modes are persistent; a choice made later in the tuning app overrides these defaults.
 &zip_periph_ball  { default-index = <1>; };
 &zip_central_ball { default-index = <0>; };
+
+// Gentler scrolling on the left ball. The vendor pipeline divides ball travel by 8
+// and reports every 16 ms; that felt too fast and twitchy. Divide by 20 and report
+// every 24 ms instead. Raise the divisor to slow it further, lower it to speed up.
+&zip_periph_ball {
+    scroll_up {
+        input-processors
+          = <&zip_xy_to_scroll_mapper>
+          , <&zip_scroll_scaler 1 20>
+          , <&zip_report_rate_limit 24>;
+    };
+    scroll_down {
+        input-processors
+          = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>
+          , <&zip_xy_to_scroll_mapper>
+          , <&zip_scroll_scaler 1 20>
+          , <&zip_report_rate_limit 24>;
+    };
+};
 
 / {
     chosen { zmk,physical-layout = &gggw_crosses_54_layout; };
