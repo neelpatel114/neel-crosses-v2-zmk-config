@@ -14,6 +14,7 @@
  *  - Lower outer key toggles USB vs Bluetooth output.
  *  - Left ball defaults to Scroll, right ball to Cursor (default-index overrides).
  *  - Left ball scroll slowed (scaler 1/20, 24 ms) via zip_periph_ball child overrides.
+ *  - System layer (Lower+Raise held): OTA update mode, USB bootloader, reset, per half.
  *  - Auto mouse layer: ball motion activates layer 3 for 750 ms (see overrides above the root node).
  *  - Mouse layer added as layer 3 with clicks on both home rows so either hand can click
  *    while the other thumb drives a ball. studio_unlock is top-left on that layer (GGGW default).
@@ -85,7 +86,26 @@
         };
     };
 
+    // Lower + Raise held together = System layer (index 4): OTA / USB bootloader / reset keys.
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        system_tri {
+            if-layers = <1 2>;
+            then-layer = <4>;
+        };
+    };
+
     behaviors {
+        // Reboot the half this key is on into the bootloader's over-the-air DFU mode
+        // (GPREGRET 0xA8 for the Adafruit nRF52 bootloader; 0x57 = &bootloader USB/UF2 mode).
+        // Then flash from a phone with nRF Connect. See ~/Desktop/GGGBK/ota/README.md.
+        ota_boot: ota_boot {
+            compatible = "zmk,behavior-reset";
+            #binding-cells = <0>;
+            type = <0xA8>;
+            bootloader;
+            display-name = "OTA";
+        };
         // Shift+Backspace = Delete (shift is not passed through)
         bspc_del: bspc_del {
             compatible = "zmk,behavior-mod-morph";
@@ -169,6 +189,21 @@
 &trans          &mkp MB4  &mkp MCLK  &mkp RCLK  &mkp LCLK  &trans       &trans  &mkp LCLK  &mkp RCLK  &mkp MCLK  &mkp MB5  &trans
 &trans          &trans  &trans     &trans     &trans     &trans       &trans  &trans     &trans     &trans     &trans  &trans
                                    &trans  &trans  &trans               &trans  &trans  &trans
+            >;
+        };
+
+        system_layer {
+            // Only active while BOTH Lower and Raise thumbs are held.
+            // Left half:  Esc = OTA update mode, 1 = USB bootloader, 2 = reset.
+            // Right half: =   = OTA update mode, 0 = USB bootloader, 9 = reset.
+            // Each key acts on the half it is physically on.
+            display-name = "System";
+            bindings = <
+&ota_boot  &bootloader  &sys_reset  &none  &none  &none       &none  &none  &none  &sys_reset  &bootloader  &ota_boot
+&none      &none        &none       &none  &none  &none       &none  &none  &none  &none       &none        &none
+&none      &none        &none       &none  &none  &none       &none  &none  &none  &none       &none        &none
+&none      &none        &none       &none  &none  &none       &none  &none  &none  &none       &none        &none
+                                    &trans  &trans  &trans               &trans  &trans  &trans
             >;
         };
     };
