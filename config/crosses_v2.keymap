@@ -177,14 +177,14 @@
 
         raise_layer {
             // ------------------------------------------------------------------------------------------
-            // |      |     |     |     |     |     |      |      |     |     |     |     |      |
+            // |      |     |     |C-O-D|C-O-F|C-O-G|      |      |     |     |     |     |      |   Magnet thirds
             // |  `   |  !  |  @  |  #  |  $  |  %  |      | CTRL |  &  |  *  |  -  |  +  | BSPC |
             // | SHFT |  (  |  )  |  {  |  }  |  |  |      | LEFT | DOWN| UP  |RIGHT|C-UP |  `   |
             // | CTRL |  <  |  >  |  [  |  ]  |  "  |      |  KP+ |  -  |  =  |  |  |  ?  |  \   |
             //             | ALT  | ___ | CMD |  | C-LEFT | ___ | C-RIGHT |
             display-name = "Raise";
             bindings = <
-&trans            &trans           &trans            &trans            &trans             &trans               &trans       &trans         &trans        &trans     &trans            &trans
+&trans            &trans           &trans            &kp LC(LA(D))     &kp LC(LA(F))      &kp LC(LA(G))        &trans       &trans         &trans        &trans     &trans            &trans
 &kp GRAVE         &kp EXCLAMATION  &kp AT_SIGN       &kp HASH          &kp DOLLAR         &kp PERCENT          &kp LCTRL    &kp AMPERSAND  &kp ASTERISK  &kp MINUS  &kp PLUS          &kp BACKSPACE
 &kp LEFT_SHIFT    &kp LPAR         &kp RPAR          &kp LEFT_BRACE    &kp RIGHT_BRACE    &kp PIPE             &kp LEFT     &kp DOWN       &kp UP_ARROW  &kp RIGHT  &kp LC(UP_ARROW)  &kp GRAVE
 &kp LEFT_CONTROL  &kp LESS_THAN    &kp GREATER_THAN  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp DOUBLE_QUOTES    &kp KP_PLUS  &kp MINUS      &kp EQUAL     &kp PIPE   &kp QUESTION      &kp BSLH
