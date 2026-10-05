@@ -15,6 +15,7 @@
  *  - Left ball defaults to Scroll, right ball to Cursor (default-index overrides).
  *  - Left ball scroll slowed (scaler 1/20, 24 ms) via zip_periph_ball child overrides.
  *  - System layer (Lower+Raise held): OTA update mode, USB bootloader, reset, per half.
+ *  - Right ball 1200 CPI default (res-cpi override on the central).
  *  - Auto mouse layer: ball motion activates layer 3 for 750 ms (see overrides above the root node).
  *  - Mouse layer added as layer 3 with clicks on both home rows so either hand can click
  *    while the other thumb drives a ball. studio_unlock is top-left on that layer (GGGW default).
@@ -47,6 +48,15 @@
 // Note: the modes are persistent; a choice made later in the tuning app overrides these defaults.
 &zip_periph_ball  { default-index = <1>; };
 &zip_central_ball { default-index = <0>; };
+
+// Right (cursor) ball resolution: 1200 CPI power-on default instead of the vendor's 700, in line
+// with Logitech's trackball and ergo-mouse defaults. Only the central node exists on the right
+// build, so this is guarded; the left (scroll) ball stays at 700. A value saved later from the
+// tuning app still takes precedence.
+#if defined(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+&trackball_central { res-cpi = <1200>; };
+&cpi_set_r { default-cpi = <1200>; };
+#endif
 
 // Gentler scrolling on the left ball. The vendor pipeline divides ball travel by 8
 // and reports every 16 ms; that felt too fast and twitchy. Divide by 20 and report
