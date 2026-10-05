@@ -15,7 +15,8 @@
  *  - Left ball defaults to Scroll, right ball to Cursor (default-index overrides).
  *  - Left ball scroll slowed (scaler 1/20, 24 ms) via zip_periph_ball child overrides.
  *  - Lower and Raise thumb positions are &trans on each other's layer so both can be held
- *    together (System layer). Lower: 0 on the right outer thumb. Raise: Option on the left outer thumb.
+ *    together (System layer). Lower numpad is 7-8-9 on the top row down to 0 . on the bottom row,
+ *    Option on the right outer thumb. Raise: Option on the left outer thumb.
  *  - System layer (Lower+Raise held): OTA update mode, USB bootloader, reset, per half.
  *  - Right ball 1200 CPI default (res-cpi override on the central).
  *  - Auto mouse layer: ball motion activates layer 3 for 750 ms (see overrides above the root node).
@@ -158,18 +159,19 @@
 
         lower_layer {
             // ------------------------------------------------------------------------------------------
-            // |   ~   |     |     |     |     |     |      |     |     |     | VOL- | VOL+ | PLAY  |
-            // |USB/BT | BT0 | BT1 | BT2 | BT3 | BT4 |  (tap = select, hold 1s = clear that profile)      |  7  |  8  |  9  |  +   |  =   | BSPC  |
-            // |  F1   | F2  | F3  | F4  | F5  | F6  |      |  4  |  5  |  6  |  -   |  UP  |   ~   |
-            // |  F7   | F8  | F9  | F10 | F11 | F12 |      |  1  |  2  |  3  | LEFT | DOWN | RIGHT |
-            //             | CTRL | ___ | SPACE |  | ENTER | ___ |  0  |
+            // |   ~   |     |     |     |     |     |      |  7  |  8  |  9  | VOL- | VOL+ | PLAY  |
+            // |USB/BT | BT0 | BT1 | BT2 | BT3 | BT4 |      |  4  |  5  |  6  |  +   |  =   | BSPC  |
+            // |  F1   | F2  | F3  | F4  | F5  | F6  |      |  1  |  2  |  3  |  -   |  UP  |   ~   |
+            // |  F7   | F8  | F9  | F10 | F11 | F12 |      |  0  |  .  |  ,  | LEFT | DOWN | RIGHT |
+            //             | CTRL | ___ | SPACE |  | ENTER | ___ | ALT |
+            // BT0-4: tap = select, hold 1 s = clear that profile. Numpad under the right hand.
             display-name = "Lower";
             bindings = <
-&kp TILDE   &trans        &trans        &trans        &trans        &trans            &trans        &trans        &trans        &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &kp C_PLAY_PAUSE
-&out OUT_TOG  &bt_ht 0 0    &bt_ht 1 1    &bt_ht 2 2    &bt_ht 3 3    &bt_ht 4 4        &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp PLUS           &kp EQUAL        &kp BACKSPACE
-&kp F1      &kp F2        &kp F3        &kp F4        &kp F5        &kp F6            &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp MINUS          &kp UP_ARROW     &kp TILDE
-&kp F7      &kp F8        &kp F9        &kp F10       &kp F11       &kp F12           &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp LEFT           &kp DOWN         &kp RIGHT
-                          &kp LEFT_CONTROL  &trans  &kp SPACE                          &kp ENTER  &trans        &kp NUMBER_0
+&kp TILDE     &trans        &trans        &trans        &trans        &trans            &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &kp C_PLAY_PAUSE
+&out OUT_TOG  &bt_ht 0 0    &bt_ht 1 1    &bt_ht 2 2    &bt_ht 3 3    &bt_ht 4 4        &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp PLUS           &kp EQUAL        &kp BACKSPACE
+&kp F1        &kp F2        &kp F3        &kp F4        &kp F5        &kp F6            &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp MINUS          &kp UP_ARROW     &kp TILDE
+&kp F7        &kp F8        &kp F9        &kp F10       &kp F11       &kp F12           &kp NUMBER_0  &kp DOT       &trans        &kp LEFT           &kp DOWN         &kp RIGHT
+                            &kp LEFT_CONTROL  &trans  &kp SPACE                          &kp ENTER  &trans  &kp RIGHT_ALT
             >;
         };
 
