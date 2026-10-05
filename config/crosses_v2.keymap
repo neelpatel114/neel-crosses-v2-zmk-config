@@ -163,7 +163,7 @@
             // |USB/BT | BT0 | BT1 | BT2 | BT3 | BT4 |      |  4  |  5  |  6  |  +   |  =   | BSPC  |
             // |  F1   | F2  | F3  | F4  | F5  | F6  |      |  1  |  2  |  3  |  -   |  UP  |   ~   |
             // |  F7   | F8  | F9  | F10 | F11 | F12 |      |  0  |  .  |  ,  | LEFT | DOWN | RIGHT |
-            //             | CTRL | ___ | SPACE |  | ENTER | ___ | ALT |
+            //             | ___  | ___ | SPACE |  | ENTER | ___ | ALT |   (left outer thumb falls through to Cmd)
             // BT0-4: tap = select, hold 1 s = clear that profile. Media keys under the left hand (one-handed with the Lower thumb); numpad under the right hand.
             display-name = "Lower";
             bindings = <
@@ -171,7 +171,7 @@
 &out OUT_TOG  &bt_ht 0 0    &bt_ht 1 1    &bt_ht 2 2    &bt_ht 3 3    &bt_ht 4 4        &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp PLUS           &kp EQUAL        &kp BACKSPACE
 &kp F1        &kp F2        &kp F3        &kp F4        &kp F5        &kp F6            &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp MINUS          &kp UP_ARROW     &kp TILDE
 &kp F7        &kp F8        &kp F9        &kp F10       &kp F11       &kp F12           &kp NUMBER_0  &kp DOT       &trans        &kp LEFT           &kp DOWN         &kp RIGHT
-                            &kp LEFT_CONTROL  &trans  &kp SPACE                          &kp ENTER  &trans  &kp RIGHT_ALT
+                            &trans            &trans  &kp SPACE                          &kp ENTER  &trans  &kp RIGHT_ALT
             >;
         };
 
