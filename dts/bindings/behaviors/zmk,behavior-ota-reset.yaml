@@ -1,0 +1,6 @@
+# Reboots this half into the Adafruit nRF52 bootloader's over-the-air DFU mode.
+description: OTA DFU reset behavior
+
+compatible: "zmk,behavior-ota-reset"
+
+include: zero_param.yaml

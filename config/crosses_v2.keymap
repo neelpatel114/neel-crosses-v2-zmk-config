@@ -109,14 +109,12 @@
     };
 
     behaviors {
-        // Reboot the half this key is on into the bootloader's over-the-air DFU mode
-        // (GPREGRET 0xA8 for the Adafruit nRF52 bootloader; 0x57 = &bootloader USB/UF2 mode).
+        // Reboot the half this key is on into the bootloader's over-the-air DFU mode (GPREGRET 0xA8).
+        // ZMK's own &bootloader can only request USB/UF2 mode via boot-mode retention, hence the custom behavior.
         // Then flash from a phone with nRF Connect. See ~/Desktop/GGGBK/ota/README.md.
         ota_boot: ota_boot {
-            compatible = "zmk,behavior-reset";
+            compatible = "zmk,behavior-ota-reset";   // custom, see src/behavior_ota_reset.c
             #binding-cells = <0>;
-            type = <0xA8>;
-            bootloader;
             display-name = "OTA";
         };
         // Shift+Backspace = Delete (shift is not passed through)
